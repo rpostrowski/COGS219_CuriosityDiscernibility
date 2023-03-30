@@ -4,17 +4,50 @@
     <title>My experiment</title>
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-image-slider-response.js"></script>
+    <script src="jspsych/plugin-canvas-slider-response.js"></script>
+    <script src="jspsych/plugin-preload.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
   </head>
   <body></body>
   <script>
-    const jsPsych = initJsPsych();
+    const jsPsych = initJsPsych({
+        on_finish: function() {
+        jsPsych.data.displayData();
+        }
+    });
 
     const instructions = {
       type: jsPsychHtmlKeyboardResponse,
       stimulus: 'These are some instructions.'
     }
+    
+    const img_trial = {
+        type: jsPsychImageSliderResponse,
+        stimulus: 'rachel_julia.jpg',
+        maintain_aspect_ratio: true,
+        stimulus_height: 300
+    }
 
-    jsPsych.run([instructions]);
-  </script>
+    var colors = ['#FF3333', '#FF6A33'];
+
+    function twoSquares(c) {    
+        var ctx = c.getContext('2d');
+        ctx.fillStyle = colors[0];
+        ctx.fillRect(200, 70, 40, 40);
+        ctx.fillStyle = colors[1];
+        ctx.fillRect(260, 70, 40, 40);
+    }
+
+    const canvas_trial = {
+        type: jsPsychCanvasSliderResponse,
+        stimulus: twoSquares,
+        labels: ['0','10'],
+        canvas_size: [150, 500]
+    }
+
+    var timeline = [instructions, img_trial, canvas_trial];
+
+    jsPsych.run(timeline);
+</script>
 </html>
