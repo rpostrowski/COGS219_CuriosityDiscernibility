@@ -18,18 +18,6 @@
         }
     });
 
-    const instructions = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: 'These are some instructions.'
-    }
-    
-    const img_trial = {
-        type: jsPsychImageSliderResponse,
-        stimulus: 'rachel_julia.jpg',
-        maintain_aspect_ratio: true,
-        stimulus_height: 300
-    }
-
     var images = [  "images/family.jpg",
                     "images/rachel.jpg",
                     "images/rachel.jpg"]
@@ -37,23 +25,6 @@
     const dummy_test = {
         type: jsPsychCustomDeblur,
         stim_list: images
-    }
-
-    var colors = ['#FF3333', '#FF6A33'];
-
-    function twoSquares(c) {    
-        var ctx = c.getContext('2d');
-        ctx.fillStyle = colors[0];
-        ctx.fillRect(200, 70, 40, 40);
-        ctx.fillStyle = colors[1];
-        ctx.fillRect(260, 70, 40, 40);
-    }
-
-    const canvas_trial = {
-        type: jsPsychCanvasSliderResponse,
-        stimulus: twoSquares,
-        labels: ['0','10'],
-        canvas_size: [150, 500]
     }
 
     var timeline = [dummy_test];
