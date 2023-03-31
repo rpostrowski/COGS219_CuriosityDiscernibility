@@ -1,32 +1,29 @@
-var jsPsychCustomDeblur = (function (jspsych) {
+var jsPsychCustomTrialDeblur = (function (jspsych) {
     "use strict";
   
     const info = {
-      name: "jsPsychCustomDeblur",
+      name: "jsPsychCustomTrialDeblur",
       parameters: {
-        stim_list: {
+        stim: {
           type: jspsych.ParameterType.IMAGE,
-          array: true,
           default: undefined,
         }
       },
     };
 
     /**
-     * jsPsychCustomDeblur
+     * jsPsychCustomTrialDeblur
      *     *
      * @author Rachel, Zephan, Kai, Liam
      * @see {@link https://DOCUMENTATION_URL DOCUMENTATION LINK TEXT}
      */
-    class jsPsychCustomDeblur {
+    class jsPsychCustomTrialDeblur {
       constructor(jsPsych) {
         this.jsPsych = jsPsych;
       }
       
       trial(display_element, trial) {
-        var img1 = trial.stim_list[0];
-        var img2 = trial.stim_list[1];
-        var img3 = trial.stim_list[2];
+        var image1 = trial.stim;
 
         display_element.innerHTML = `	
         <style>
@@ -78,18 +75,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
         <div class="container">
 
           <div class="image-wrapper">
-            <img src=${img1} alt="Image 1">
-            <button class="button" id="button1">Reduce Blur</button>
-          </div>
-
-          <div class="image-wrapper">
-            <img src=${img2} alt="Image 2">
-            <button class="button" id="button2">Reduce Blur</button>
-          </div>
-
-          <div class="image-wrapper">
-            <img src=${img3} alt="Image 3">
-            <button class="button" id="button3">Reduce Blur</button>
+            <img src=${image1} id="image1" alt="Image">
+            <button class="button" id="button">Reduce Blur</button>
           </div>
 
         </div>
@@ -99,33 +86,31 @@ var jsPsychCustomDeblur = (function (jspsych) {
       `
 
       const buttons = document.querySelectorAll('.button');
-      const images = document.querySelectorAll('.image-wrapper img');
+      const img = document.querySelector('#image1');
       const continueButton = document.querySelector('#continue');
       const blurStep = 3;
 
-      var clicks = [0,0,0];
+      var clicks = 0;
 
-
+  
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
-          let currentBlur = getComputedStyle(images[index]).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
+          let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
                   console.log(currentBlur);
-                  clicks[index]++;
+                  clicks++;
   
                   let newBlur = currentBlur - blurStep;
           if (newBlur < 0) {
             newBlur = 0;
           }
-          images[index].style.filter = `blur(${newBlur}px)`;
+          img.style.filter = `blur(${newBlur}px)`;
           button.innerHTML = `Reduce Blur`;
           button.disabled = (newBlur === 0) ? true : false;
         });
       });
 
         var trial_data = {
-          count0: clicks[0],
-          count1: clicks[1],
-          count2: clicks[2]
+          count: clicks
         };
 
       continueButton.addEventListener('click', () => {
@@ -133,7 +118,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
       });
       }
     }
-    jsPsychCustomDeblur.info = info;
+    jsPsychCustomTrialDeblur.info = info;
   
-    return jsPsychCustomDeblur;
+    return jsPsychCustomTrialDeblur;
   })(jsPsychModule);

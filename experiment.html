@@ -6,6 +6,7 @@
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
     <script src="plugin-custom-deblur.js"></script>
+    <script src="plugin-custom-trial-deblur.js"></script>
     <script src="jspsych/plugin-canvas-slider-response.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
@@ -27,7 +28,12 @@
         stim_list: images
     }
 
-    var timeline = [dummy_test];
+    const trial_test = {
+        type: jsPsychCustomTrialDeblur,
+        stim: images[0]
+    }
+
+    var timeline = [trial_test, dummy_test];
 
     jsPsych.run(timeline);
 </script>
