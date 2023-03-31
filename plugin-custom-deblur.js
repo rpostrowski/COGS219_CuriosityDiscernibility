@@ -4,14 +4,11 @@ var jsPsychCustomDeblur = (function (jspsych) {
     const info = {
       name: "jsPsychCustomDeblur",
       parameters: {
-        parameter_name: {
-          type: jspsych.ParameterType.INT,
-          default: undefined,
-        },
-        parameter_name2: {
+        stim_list: {
           type: jspsych.ParameterType.IMAGE,
+          array: true,
           default: undefined,
-        },
+        }
       },
     };
 
@@ -27,6 +24,10 @@ var jsPsychCustomDeblur = (function (jspsych) {
       }
       
       trial(display_element, trial) {
+        var img1 = trial.stim_list[0];
+        var img2 = trial.stim_list[1];
+        var img3 = trial.stim_list[2];
+
         display_element.innerHTML = `	
         <style>
           .container {
@@ -77,17 +78,17 @@ var jsPsychCustomDeblur = (function (jspsych) {
         <div class="container">
 
           <div class="image-wrapper">
-            <img src="images/rachel.JPG" alt="Image 1">
+            <img src=${img1} alt="Image 1">
             <button class="button" id="button1">Reduce Blur</button>
           </div>
 
           <div class="image-wrapper">
-            <img src="images/family.JPG" alt="Image 2">
+            <img src=${img2} alt="Image 2">
             <button class="button" id="button2">Reduce Blur</button>
           </div>
 
           <div class="image-wrapper">
-            <img src="images/rachel_julia.JPG" alt="Image 3">
+            <img src=${img3} alt="Image 3">
             <button class="button" id="button3">Reduce Blur</button>
           </div>
 
