@@ -5,7 +5,7 @@
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
-    <script src="plugin-custom-deblur.js"></script>
+    <script src="plugin-custom-trial-deblur.js"></script>
     <script src="jspsych/plugin-canvas-slider-response.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
@@ -22,12 +22,12 @@
                     "images/rachel.jpg",
                     "images/rachel.jpg"]
 
-    const dummy_test = {
-        type: jsPsychCustomDeblur,
-        stim_list: images
+    const trial_test = {
+        type: jsPsychCustomTrialDeblur,
+        stim: images[0]
     }
 
-    var timeline = [dummy_test];
+    var timeline = [trial_test];
 
     jsPsych.run(timeline);
 </script>
