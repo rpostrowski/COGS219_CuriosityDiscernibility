@@ -5,6 +5,7 @@
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
+    <script src="plugin-custom-deblur.js"></script>
     <script src="jspsych/plugin-canvas-slider-response.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
@@ -29,6 +30,10 @@
         stimulus_height: 300
     }
 
+    const dummy_test = {
+        type: jsPsychCustomDeblur
+    }
+
     var colors = ['#FF3333', '#FF6A33'];
 
     function twoSquares(c) {    
@@ -46,7 +51,7 @@
         canvas_size: [150, 500]
     }
 
-    var timeline = [instructions, img_trial, canvas_trial];
+    var timeline = [dummy_test];
 
     jsPsych.run(timeline);
 </script>
