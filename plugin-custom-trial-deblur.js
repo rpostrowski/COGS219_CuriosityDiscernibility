@@ -76,44 +76,39 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
 
           <div class="image-wrapper">
             <img src=${image1} id="image1" alt="Image">
-            <button class="button" id="button">Reduce Blur</button>
+            <button class="button" id="blurButton">Reduce Blur</button>
           </div>
 
         </div>
 
-        <button class="button" id="continue">Continue</button>
+        <button class="button" id="continueButton">Continue</button>
       
       `
-
-      const buttons = document.querySelectorAll('.button');
       const img = document.querySelector('#image1');
-      const continueButton = document.querySelector('#continue');
       const blurStep = 3;
 
       var clicks = 0;
+  
+      blurButton.addEventListener('click', () => {
+        let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
+                console.log(currentBlur);
+                clicks++;
 
-  
-      buttons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-          let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
-                  console.log(currentBlur);
-                  clicks++;
-  
-                  let newBlur = currentBlur - blurStep;
-          if (newBlur < 0) {
-            newBlur = 0;
-          }
-          img.style.filter = `blur(${newBlur}px)`;
-          button.innerHTML = `Reduce Blur`;
-          button.disabled = (newBlur === 0) ? true : false;
-        });
+                let newBlur = currentBlur - blurStep;
+        if (newBlur < 0) {
+          newBlur = 0;
+        }
+        img.style.filter = `blur(${newBlur}px)`;
+        blurButton.innerHTML = `Reduce Blur`;
+        blurButton.disabled = (newBlur === 0) ? true : false;
       });
 
         var trial_data = {
-          count: clicks
+          count: clicks,
         };
 
       continueButton.addEventListener('click', () => {
+        console.log("continue");
         this.jsPsych.finishTrial(trial_data);
       });
       }
