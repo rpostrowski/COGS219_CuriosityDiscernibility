@@ -105,7 +105,7 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
         blurButton.innerHTML = `Reduce Blur`;
         blurButton.disabled = (newBlur === 0) ? true : false;
 
-        // add click delay or pop up to slow clicks and avoid error
+        // add click delay or pop up to slow clicks and avoid error, OR MAKE LOADING DEBLUR BUTTON
       });
 
       continueButton.addEventListener('click', () => {
