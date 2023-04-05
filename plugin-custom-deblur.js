@@ -111,6 +111,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
           let currentBlur = getComputedStyle(images[index]).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
                   console.log(currentBlur);
                   clicks[index]++;
+                  console.log(clicks);
   
                   let newBlur = currentBlur - blurStep;
           if (newBlur < 0) {
@@ -125,10 +126,12 @@ var jsPsychCustomDeblur = (function (jspsych) {
         var trial_data = {
           count0: clicks[0],
           count1: clicks[1],
-          count2: clicks[2]
+          count2: clicks[2],
+          count: clicks
         };
 
       continueButton.addEventListener('click', () => {
+        console.log(clicks[1]);
         this.jsPsych.finishTrial(trial_data);
       });
       }

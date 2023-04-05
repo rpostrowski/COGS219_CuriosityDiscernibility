@@ -18,16 +18,37 @@
         }
     });
 
-    var images = [  "images/family.jpg",
-                    "images/rachel.jpg",
-                    "images/rachel.jpg"]
+    var timeline = [];
 
-    const trial_test = {
-        type: jsPsychCustomTrialDeblur,
-        stim: images[0]
-    }
+    var test_procedure = {
+      timeline: [
+        {
+          type: jsPsychCustomTrialDeblur,
+          stim: jsPsych.timelineVariable('stim'),
+        }
+      ],
+      timeline_variables: [
+        { stim: 'images/animal.jpg'},
+        { stim: 'images/bamboo.jpg'},
+        { stim: 'images/begonia.jpg'},
+        { stim: 'images/buildings.jpg'},
+        { stim: 'images/deer.jpg'},
+        { stim: 'images/flower.jpg'},
+        { stim: 'images/food.jpg'},
+        { stim: 'images/girl.jpg'},
+        { stim: 'images/goose.jpg'},
+        { stim: 'images/mountains.jpg'},
+        { stim: 'images/road.jpg'},
+        { stim: 'images/spider.jpg'},
+        { stim: 'images/terraces.jpg'}
+       ],
+      sample: {
+          type: 'without-replacement',
+          size: 5
+      }
+   }
 
-    var timeline = [trial_test];
+    timeline.push(test_procedure);
 
     jsPsych.run(timeline);
 </script>
