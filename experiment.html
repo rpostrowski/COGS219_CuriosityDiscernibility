@@ -19,17 +19,43 @@
         }
     });
 
-    var images = [  "images/animal.jpg",
-                    "images/bamboo.jpg",
-                    "images/road.jpg"]
+    const images = [  "images/animal.jpg",
+                      "images/begonia.jpg",
+                      "images/buildings.jpg",
+                      "images/deer.jpg",
+                      "images/flower.jpg",
+                      "images/food.jpg",
+                      "images/girl.jpg",
+                      "images/goose.jpg",
+                      "images/mountains.jpg",
+                      "images/road.jpg",
+                      "images/spider.jpg",
+                      "images/terraces.jpg"]
 
-    const dummy_test = {
-        type: jsPsychCustomDeblur,
-        stim_list: images
+    const shuffledImages = jsPsych.randomization.shuffle(images);
+
+    const stimList = [];
+
+    for (i = 0; i < shuffledImages.length; i+=3){
+      const stim = {
+        image1: shuffledImages[i],
+        image2: shuffledImages[i + 1],
+        image3: shuffledImages[i + 2]
+      };
+      stimList.push(stim);
     }
 
-    var timeline = [dummy_test];
+    console.log(stimList);
 
-    jsPsych.run(timeline);
+    var blurTimeline = {
+      timeline: [
+          {
+            type: jsPsychCustomDeblur,
+          }
+      ],
+      timeline_variables: stimList
+    }
+
+    jsPsych.run(blurTimeline);
 </script>
 </html>
