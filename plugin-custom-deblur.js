@@ -15,7 +15,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
     /**
      * jsPsychCustomDeblur
      *     *
-     * @author Rachel, Zephan, Kai, Liam
+     * @author Kai, Liam, Rachel, Zephan
      * @see {@link https://DOCUMENTATION_URL DOCUMENTATION LINK TEXT}
      */
     class jsPsychCustomDeblur {
@@ -69,7 +69,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
             gap: 20px;
           }
           .image-wrapper img {
-            max-width: 150px;
+            max-width: 250px;
             filter: blur(15px);
             transition: filter 0.3s ease;
           }

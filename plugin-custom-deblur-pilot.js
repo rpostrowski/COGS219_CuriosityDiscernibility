@@ -1,8 +1,8 @@
-var jsPsychCustomTrialDeblur = (function (jspsych) {
+var jsPsychCustomDeblurPilot = (function (jspsych) {
     "use strict";
   
     const info = {
-      name: "jsPsychCustomTrialDeblur",
+      name: "jsPsychCustomDeblurPilot",
       parameters: {
         stim: {
           type: jspsych.ParameterType.IMAGE,
@@ -12,12 +12,12 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
     };
 
     /**
-     * jsPsychCustomTrialDeblur
+     * jsPsychCustomDeblurPilot
      *     *
-     * @author Rachel, Zephan, Kai, Liam
+     * @author Kai, Liam, Rachel, Zephan
      * @see {@link https://DOCUMENTATION_URL DOCUMENTATION LINK TEXT}
      */
-    class jsPsychCustomTrialDeblur {
+    class jsPsychCustomDeblurPilot {
       constructor(jsPsych) {
         this.jsPsych = jsPsych;
       }
@@ -81,7 +81,7 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
             gap: 20px;
           }
           .image-wrapper img {
-            max-width: 500px;
+            max-width: 250px;
             filter: blur(15px);
             transition: filter 0.0s ease;
           }
@@ -170,7 +170,7 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
       }
     }
 
-    jsPsychCustomTrialDeblur.info = info;
+    jsPsychCustomDeblurPilot.info = info;
   
-    return jsPsychCustomTrialDeblur;
+    return jsPsychCustomDeblurPilot;
   })(jsPsychModule);

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My experiment</title>
+    <title>Pilot: Image Discernibility</title>
+    <link rel="icon" type="image/x-icon" href="question.png">
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
@@ -25,21 +26,26 @@
     var instructions = {
       type: jsPsychInstructions,
       pages: [
-      'Welcome to the experiment. Click next to begin.',
-      'You will be looking at a sequence of images andxxx: ' +
+      `Welcome! Click NEXT to begin.` +
       '<br>' +
-      `Once you've deblurred, you will be asked to describe the image you saw, so 
-      deblur until you feel confident about the content of the image that you saw.`
+      '<br>',
+      'You will be looking at a sequence of blurry images, with the option to deblur them. ' +
+      '<br>' +
+      '<br>' +
+      `Please deblur the images until you feel confident about the content of the image that you saw.` +
+      '<br>' +
+      '<br>' +
+      `Once you feel confident, please describe the image in one or two words.`
       ],
       show_clickable_nav: true
     }
-    
+
     timeline.push(instructions);
 
     var test_procedure = {
       timeline: [
         {
-          type: jsPsychCustomTrialDeblur,
+          type: jsPsychCustomDeblurPilot,
           stim: jsPsych.timelineVariable('stim'),
         }
       ],
