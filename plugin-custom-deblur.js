@@ -70,8 +70,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
           }
           .image-wrapper img {
             max-width: 250px;
-            filter: blur(15px);
-            transition: filter 0.3s ease;
+            filter: blur(10px);
+            transition: filter 0.0s ease;
           }
           </style>
         
@@ -101,7 +101,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
       const buttons = document.querySelectorAll('.button');
       const images = document.querySelectorAll('.image-wrapper img');
       const continueButton = document.querySelector('#continue');
-      const blurStep = 3;
+      const blurStep = 1;
 
       var clicks = [0,0,0];
 

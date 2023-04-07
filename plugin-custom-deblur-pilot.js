@@ -82,7 +82,7 @@ var jsPsychCustomDeblurPilot = (function (jspsych) {
           }
           .image-wrapper img {
             max-width: 250px;
-            filter: blur(15px);
+            filter: blur(10px);
             transition: filter 0.0s ease;
           }
           .text-box-wrapper {
@@ -134,9 +134,7 @@ var jsPsychCustomDeblurPilot = (function (jspsych) {
 
       blurButton.addEventListener('click', () => {  // When the button is clicked...
         let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
-          console.log(currentBlur);
           clicks++;
-          console.log(clicks);
 
           let newBlur = currentBlur - blurStep;
            
