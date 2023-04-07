@@ -4,6 +4,7 @@
     <title>Pilot: Image Discernibility</title>
     <link rel="icon" type="image/x-icon" href="question.png">
     <script src="jspsych/jspsych.js"></script>
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
@@ -21,6 +22,11 @@
         }
     });
 
+    
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = `${subject_id}.csv`;
+            
+
     var timeline = [];
 
     var instructions = {
@@ -35,7 +41,12 @@
       `Please deblur the images until you feel confident about the content of the image that you saw.` +
       '<br>' +
       '<br>' +
-      `Once you feel confident, please describe the image in one or two words.`
+      `Once you feel confident, please describe the image in one or two words.`,
+      `Please take your time during the deblur process.` +
+      '<br>' +
+      '<br>' +
+      `The button will become disabled immediately
+       after clicking to prevent you from clicking too quickly.`
       ],
       show_clickable_nav: true
     }
@@ -88,6 +99,17 @@
    }
 
     timeline.push(test_procedure);
+
+    
+    const save_data = {
+                type: jsPsychPipe,
+                action: "save",
+                experiment_id: "QSZrht9sx76m",
+                filename: filename,
+                data_string: ()=>jsPsych.data.get().csv()
+              };
+
+    timeline.push(save_data);
 
     jsPsych.run(timeline);
 </script>

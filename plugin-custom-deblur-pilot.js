@@ -125,10 +125,12 @@ var jsPsychCustomDeblurPilot = (function (jspsych) {
 
       function resetButton(newBlur) {
         blurButton.disabled = true;
+        blurButton.style.opacity = "0.15";
 
         setTimeout(() => {
           blurButton.disabled = (newBlur === 0) ? true : false;
-        }, 500);
+          blurButton.style.opacity = "1.0";
+        }, 750);
 
       }
 
