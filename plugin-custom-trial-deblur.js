@@ -66,8 +66,8 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
             gap: 20px;
           }
           .image-wrapper img {
-            max-width: 150px;
-            filter: blur(35px);
+            max-width: 500px;
+            filter: blur(33px);
             transition: filter 0.3s ease;
           }
           </style>
@@ -103,6 +103,14 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
         }
         img.style.filter = `blur(${newBlur}px)`;
         blurButton.innerHTML = `Reduce Blur`;
+
+        blurButton.disabled = true;
+
+        setTimeout(() => {
+          blurButton.disabled = false;
+          console.log("re-enabled")
+        }, 2000);
+
         blurButton.disabled = (newBlur === 0) ? true : false;
 
         // add click delay or pop up to slow clicks and avoid error, OR MAKE LOADING DEBLUR BUTTON

@@ -5,6 +5,8 @@
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
+    <script src="jspsych/plugin-instructions.js"></script>
+    <script src="jspsych/plugin-survey-text.js"></script>
     <script src="plugin-custom-trial-deblur.js"></script>
     <script src="jspsych/plugin-canvas-slider-response.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
@@ -20,11 +22,31 @@
 
     var timeline = [];
 
+    var instructions = {
+      type: jsPsychInstructions,
+      pages: [
+      'Welcome to the experiment. Click next to begin.',
+      'You will be looking at a sequence of images andxxx: ' +
+      '<br>' +
+      `Once you've deblurred, you will be asked to describe the image you saw, so 
+      deblur until you feel confident about the content of the image that you saw.`
+      ],
+      show_clickable_nav: true
+    }
+    
+    timeline.push(instructions);
+
     var test_procedure = {
       timeline: [
         {
           type: jsPsychCustomTrialDeblur,
           stim: jsPsych.timelineVariable('stim'),
+        },
+        {
+          type: jsPsychSurveyText,
+          questions: [
+            {prompt: 'Describe what you saw in the previous image, or write "unsure" if you forgot.', rows: 1}
+          ] 
         }
       ],
       timeline_variables: [
