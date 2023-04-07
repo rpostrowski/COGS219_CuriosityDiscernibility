@@ -34,19 +34,13 @@
       show_clickable_nav: true
     }
     
-    timeline.push(instructions);
+    // timeline.push(instructions);
 
     var test_procedure = {
       timeline: [
         {
           type: jsPsychCustomTrialDeblur,
           stim: jsPsych.timelineVariable('stim'),
-        },
-        {
-          type: jsPsychSurveyText,
-          questions: [
-            {prompt: 'Describe what you saw in the previous image, or write "unsure" if you forgot.', rows: 1}
-          ] 
         }
       ],
       timeline_variables: [
@@ -66,7 +60,7 @@
        ],
       sample: {
           type: 'without-replacement',
-          size: 5
+          size: 2
       }
    }
 

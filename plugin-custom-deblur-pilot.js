@@ -58,7 +58,22 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
           .button:hover {
             background-color: #6f766f;
           }
-
+          .text-box-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .text-box {
+            width: 300px;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+            font-size: 16px;
+          }
           .image-wrapper {
             display: flex;
             flex-direction: column;
@@ -77,11 +92,12 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
           <div class="image-wrapper">
             <img src=${image1} id="image1" alt="Image">
             <button class="button" id="blurButton">Reduce Blur</button>
+            <form>
+            <input type="text" id="ourText" placeholder="Describe the image" required>
+            <button class="button" id="continueButton">Continue</button>
+            </form> 
           </div>
-
         </div>
-
-        <button class="button" id="continueButton">Continue</button>
       
       `
       // Create value IMG that refers to the image
@@ -116,13 +132,20 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
         // add click delay or pop up to slow clicks and avoid error, OR MAKE LOADING DEBLUR BUTTON
       });
 
+      const continueButton = document.getElementById("continueButton");
+      
       continueButton.addEventListener('click', () => {
-        console.log(`continue: ` + clicks);
+        const textBox = document.getElementById("ourText");
+        const textBoxValue = textBox.value;
         var trial_data = {
           clicks: clicks,
-          stim: image1
+          stim: image1,
+          label: textBoxValue
         };
+        
+      if (textBox.value !== '') {
         this.jsPsych.finishTrial(trial_data);
+        }
       });
       }
     }
