@@ -85,6 +85,22 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
             filter: blur(33px);
             transition: filter 0.3s ease;
           }
+          .text-box-wrapper {
+            position: relative;
+          }
+          
+          .input-wrapper {
+            position: relative;
+          }
+          
+          .error-message {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            color: red;
+            font-size: 0.8em;
+            margin-top: 5px;
+          }
           </style>
         
         <div class="container">
@@ -93,9 +109,9 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
             <img src=${image1} id="image1" alt="Image">
             <button class="button" id="blurButton">Reduce Blur</button>
             <form>
-            <input type="text" id="ourText" placeholder="Describe the image" required>
-            <button class="button" id="continueButton">Continue</button>
-            </form> 
+              <input type="text" id="ourText" placeholder="Describe the image" required>
+              <button type="submit" class="button" id="continueButton">Continue</button>
+            </form>
           </div>
         </div>
       
@@ -106,30 +122,32 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
       const blurStep = 3; // The value by which the blur is decremented with each click
 
       var clicks = 0; // Initialize number of clicks to begin
-  
-      blurButton.addEventListener('click', () => {  // When the button is clicked...
-        let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
-                console.log(currentBlur);
-                clicks++;
-                console.log(clicks);
 
-                let newBlur = currentBlur - blurStep;
-        if (newBlur < 0) {
-          newBlur = 0;
-        }
-        img.style.filter = `blur(${newBlur}px)`;
-        blurButton.innerHTML = `Reduce Blur`;
-
+      function resetButton(newBlur) {
         blurButton.disabled = true;
 
         setTimeout(() => {
-          blurButton.disabled = false;
-          console.log("re-enabled")
-        }, 2000);
+          blurButton.disabled = (newBlur === 0) ? true : false;
+        }, 500);
 
-        blurButton.disabled = (newBlur === 0) ? true : false;
+      }
 
-        // add click delay or pop up to slow clicks and avoid error, OR MAKE LOADING DEBLUR BUTTON
+      blurButton.addEventListener('click', () => {  // When the button is clicked...
+        let currentBlur = getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
+          console.log(currentBlur);
+          clicks++;
+          console.log(clicks);
+
+          let newBlur = currentBlur - blurStep;
+           
+            if (newBlur < 0) {
+                newBlur = 0;
+            }
+            
+            img.style.filter = `blur(${newBlur}px)`;
+            blurButton.innerHTML = `Reduce Blur`;
+
+          resetButton(newBlur);
       });
 
       const continueButton = document.getElementById("continueButton");
@@ -137,15 +155,17 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
       continueButton.addEventListener('click', () => {
         const textBox = document.getElementById("ourText");
         const textBoxValue = textBox.value;
-        var trial_data = {
+        var trialData = {
+          finalBlur: getComputedStyle(img).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1],
           clicks: clicks,
           stim: image1,
           label: textBoxValue
         };
         
       if (textBox.value !== '') {
-        this.jsPsych.finishTrial(trial_data);
-        }
+        this.jsPsych.finishTrial(trialData);
+      }
+
       });
       }
     }
