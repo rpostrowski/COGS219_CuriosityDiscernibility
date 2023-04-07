@@ -52,7 +52,7 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
             background-color: #4f5250;
             color: #fff;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.0s ease;
           }
 
           .button:hover {
@@ -82,8 +82,8 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
           }
           .image-wrapper img {
             max-width: 500px;
-            filter: blur(33px);
-            transition: filter 0.3s ease;
+            filter: blur(15px);
+            transition: filter 0.0s ease;
           }
           .text-box-wrapper {
             position: relative;
@@ -119,7 +119,7 @@ var jsPsychCustomTrialDeblur = (function (jspsych) {
       // Create value IMG that refers to the image
       const img = document.querySelector('#image1');
       
-      const blurStep = 3; // The value by which the blur is decremented with each click
+      const blurStep = 1; // The value by which the blur is decremented with each click
 
       var clicks = 0; // Initialize number of clicks to begin
 
