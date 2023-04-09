@@ -130,10 +130,9 @@ var jsPsychCustomDeblur = (function (jspsych) {
       });
 
         var trial_data = {
-          count0: clicks[0],
-          count1: clicks[1],
-          count2: clicks[2],
-          count: clicks
+          clicks: clicks,
+          blur: blurs
+
         };
 
       continueButton.addEventListener('click', () => {
