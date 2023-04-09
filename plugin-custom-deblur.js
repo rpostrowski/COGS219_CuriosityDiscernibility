@@ -122,6 +122,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
           let currentBlur = blurs[index];
             console.log(currentBlur);
             clicks[index]++;
+            clicksRemainingElement.textContent = totalClicks;
             totalClicks--;
             console.log("Total clicks: " + totalClicks);
             clicksRemainingElement.textContent = totalClicks;
@@ -135,7 +136,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
             blurs[index] = newBlur;
             images[index].style.filter = `blur(${newBlur}px)`;
             button.innerHTML = `Reduce Blur`;
-            button.disabled = (newBlur === 0 || totalClicks <= 1) ? true : false;
+            button.disabled = (newBlur === 0 || totalClicks <= 0) ? true : false;
 
         });
       });
