@@ -5,7 +5,9 @@
     <link rel="icon" type="image/x-icon" href="mag.png">
     <script src="jspsych/jspsych.js"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
+    <script src="jspsych/plugin-instructions.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
+    <script src="plugin-custom-deblur-pilot.js"></script>
     <script src="plugin-custom-deblur.js"></script>
     <script src="jspsych/plugin-canvas-slider-response.js"></script>
     <script src="jspsych/plugin-preload.js"></script>
@@ -14,23 +16,31 @@
   <body></body>
   <script>
     const jsPsych = initJsPsych({
+        show_progress_bar: true,
         on_finish: function() {
         jsPsych.data.displayData();
         }
     });
 
-    const images = [  "images/animal.jpg",
-                      "images/begonia.jpg",
-                      "images/buildings.jpg",
-                      "images/deer.jpg",
-                      "images/flower.jpg",
-                      "images/food.jpg",
-                      "images/girl.jpg",
-                      "images/goose.jpg",
-                      "images/mountains.jpg",
-                      "images/road.jpg",
-                      "images/spider.jpg",
-                      "images/terraces.jpg"]
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = `${subject_id}.csv`;
+
+    
+    const images = [  ["images/animal.jpg", 10],
+                      ["images/begonia.jpg", 10],
+                      ["images/buildings.jpg", 10],
+                      ["images/deer.jpg", 3],
+                      ["images/flower.jpg", 10],
+                      ["images/food.jpg", 10],
+                      ["images/girl.jpg", 10],
+                      ["images/goose.jpg", 10],
+                      ["images/mountains.jpg", 10],
+                      ["images/road.jpg", 10],
+                      ["images/spider.jpg", 10],
+                      ["images/terraces.jpg", 10]
+                    ]
+
+    var timeline = [];
 
     const shuffledImages = jsPsych.randomization.shuffle(images);
 
@@ -38,24 +48,50 @@
 
     for (i = 0; i < shuffledImages.length; i+=3){
       const stim = {
-        image1: shuffledImages[i],
-        image2: shuffledImages[i + 1],
-        image3: shuffledImages[i + 2]
+        image1: shuffledImages[i][0],
+        blur1: shuffledImages[i][1],
+        image2: shuffledImages[i + 1][0],
+        blur2: shuffledImages[i + 1][1],
+        image3: shuffledImages[i + 2][0],
+        blur3: shuffledImages[i + 1][1]
       };
       stimList.push(stim);
     }
 
-    console.log(stimList);
+    console.log("the first pic: " + stimList[0].image1);
+
+    var instructions = {
+      type: jsPsychInstructions,
+      pages: [
+      `Welcome! Click <strong>NEXT</strong> to begin.` +
+      '<br>' +
+      '<br>'
+      ],
+      show_clickable_nav: true
+    }
+
+    timeline.push(instructions);
 
     var blurTimeline = {
       timeline: [
-          {
-            type: jsPsychCustomDeblur,
-          }
+        {
+          type: jsPsychCustomDeblur,
+          stim: jsPsych.timelineVariable('stim')
+        }
       ],
-      timeline_variables: stimList
+      timeline_variables: [
+        { stim: stimList[0],
+          stim: stimList[1],
+        }
+      ],
+      sample: {
+          type: 'without-replacement',
+          size: 1
+      }    
     }
 
-    jsPsych.run(blurTimeline);
+    timeline.push(blurTimeline)
+
+    jsPsych.run(timeline);
 </script>
 </html>

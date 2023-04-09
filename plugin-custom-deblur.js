@@ -4,9 +4,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
     const info = {
       name: "jsPsychCustomDeblur",
       parameters: {
-        stim_list: {
+        stim: {
           type: jspsych.ParameterType.IMAGE,
-          array: true,
           default: undefined,
         }
       },
@@ -24,9 +23,10 @@ var jsPsychCustomDeblur = (function (jspsych) {
       }
       
       trial(display_element, trial) {
-        var img1 = trial.stim_list[0];
-        var img2 = trial.stim_list[1];
-        var img3 = trial.stim_list[2];
+
+        var img1 = trial.stim.image1;
+        var img2 = trial.stim.image2;
+        var img3 = trial.stim.image3;
 
         display_element.innerHTML = `	
         <style>
@@ -70,7 +70,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
           }
           .image-wrapper img {
             max-width: 250px;
-            filter: blur(10px);
+            filter: blur(0px);
             transition: filter 0.0s ease;
           }
           </style>
@@ -104,22 +104,28 @@ var jsPsychCustomDeblur = (function (jspsych) {
       const blurStep = 1;
 
       var clicks = [0,0,0];
+      var blurs = [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3];
 
+      images.forEach((image,index) => {
+        images[index].style.filter = `blur(${blurs[index]}px)`;
+      })
 
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
-          let currentBlur = getComputedStyle(images[index]).getPropertyValue('filter').match(/blur\((\d+)px\)/)[1];
-                  console.log(currentBlur);
-                  clicks[index]++;
-                  console.log(clicks);
+          let currentBlur = blurs[index];
+            console.log(currentBlur);
+            clicks[index]++;
+            console.log(clicks);
   
-                  let newBlur = currentBlur - blurStep;
-          if (newBlur < 0) {
-            newBlur = 0;
-          }
-          images[index].style.filter = `blur(${newBlur}px)`;
-          button.innerHTML = `Reduce Blur`;
-          button.disabled = (newBlur === 0) ? true : false;
+            let newBlur = currentBlur - blurStep;
+              if (newBlur < 0) {
+                newBlur = 0;
+              }
+            
+            blurs[index] = newBlur;
+            images[index].style.filter = `blur(${newBlur}px)`;
+            button.innerHTML = `Reduce Blur`;
+            button.disabled = (newBlur === 0) ? true : false;
         });
       });
 
