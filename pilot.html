@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
+    <script src="jspsych/plugin-html-button-response.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
     <script src="jspsych/plugin-survey-text.js"></script>
     <script src="plugin-custom-deblur-pilot.js"></script>
@@ -32,7 +33,7 @@
     var instructions = {
       type: jsPsychInstructions,
       pages: [
-      `Welcome! Click NEXT to begin.` +
+      `Welcome! Click <strong>NEXT</strong> to begin.` +
       '<br>' +
       '<br>',
       'You will be looking at a sequence of blurry images, with the option to deblur them. ' +
@@ -41,12 +42,25 @@
       `Please deblur the images until you feel confident about the content of the image that you saw.` +
       '<br>' +
       '<br>' +
-      `Once you feel confident, please describe the image in one or two words.`,
+      `Then, please describe the image in one or two words.` +
+      '<br>' +
+      '<br>',
+      `There are a total of 30 images, although you can end early if you wish.` +
+      '<br>' +
+      '<br>' +
+      `You'll have the option to end the experiment after each trial.` +
+      '<br>' +
+      '<br>',
       `Please take your time during the deblur process.` +
       '<br>' +
       '<br>' +
       `The button will become disabled immediately
-       after clicking to prevent you from clicking too quickly.`
+       after clicking to prevent you from clicking too quickly.` +
+      '<br>' +
+      '<br>',
+      `Ready to begin?` +
+      '<br>' +
+      '<br>'
       ],
       show_clickable_nav: true
     }
@@ -58,6 +72,17 @@
         {
           type: jsPsychCustomDeblurPilot,
           stim: jsPsych.timelineVariable('stim'),
+        },
+        {
+          type: jsPsychHtmlButtonResponse,
+          stimulus: '<p>Would you like to continue?</p>',
+          choices: ['Yes, continue!', 'End early'],
+          on_finish: function(data){
+            console.log(data.response);
+            if(data.response == 1){
+              jsPsych.endExperiment('Thanks for participating!');
+            }
+          }
         }
       ],
       timeline_variables: [
@@ -100,7 +125,6 @@
 
     timeline.push(test_procedure);
 
-    
     const save_data = {
                 type: jsPsychPipe,
                 action: "save",
