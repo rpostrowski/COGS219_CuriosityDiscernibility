@@ -16,7 +16,7 @@
   <body></body>
   <script>
     const jsPsych = initJsPsych({
-        show_progress_bar: true,
+        // show_progress_bar: true,
         on_finish: function() {
         jsPsych.data.displayData();
         }
@@ -63,7 +63,14 @@
       pages: [
       `Welcome! Click <strong>NEXT</strong> to begin.` +
       '<br>' +
-      '<br>'
+      '<br>',
+      `You will be presented with three images at a time... 20 clicks.` +
+      '<br>' +
+      '<br>',
+      `Ready to go?` +
+      '<br>' +
+      '<br>',
+      
       ],
       show_clickable_nav: true
     }

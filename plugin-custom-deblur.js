@@ -74,6 +74,10 @@ var jsPsychCustomDeblur = (function (jspsych) {
             transition: filter 0.0s ease;
           }
           </style>
+
+        <div id="header">
+            <p id="click-tracker"><span class="click-tracker-label">Clicks remaining: </span><span id="clicks-remaining">10</span></p>
+        </div>
         
         <div class="container">
 
@@ -102,7 +106,10 @@ var jsPsychCustomDeblur = (function (jspsych) {
       const images = document.querySelectorAll('.image-wrapper img');
       const continueButton = document.querySelector('#continue');
       const blurStep = 1;
+      const clicksRemainingElement = document.getElementById("clicks-remaining");
 
+      var totalClicks = 10;
+      clicksRemainingElement.textContent = totalClicks;
       var clicks = [0,0,0];
       var blurs = [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3];
 
@@ -115,7 +122,10 @@ var jsPsychCustomDeblur = (function (jspsych) {
           let currentBlur = blurs[index];
             console.log(currentBlur);
             clicks[index]++;
-            console.log(clicks);
+            totalClicks--;
+            console.log("Total clicks: " + totalClicks);
+            clicksRemainingElement.textContent = totalClicks;
+
   
             let newBlur = currentBlur - blurStep;
               if (newBlur < 0) {
@@ -125,7 +135,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
             blurs[index] = newBlur;
             images[index].style.filter = `blur(${newBlur}px)`;
             button.innerHTML = `Reduce Blur`;
-            button.disabled = (newBlur === 0) ? true : false;
+            button.disabled = (newBlur === 0 || totalClicks <= 1) ? true : false;
+
         });
       });
 
