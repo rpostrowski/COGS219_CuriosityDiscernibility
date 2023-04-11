@@ -131,7 +131,7 @@ var jsPsychCustomDeblurPilot = (function (jspsych) {
           blurButton.disabled = (newBlur === 0) ? true : false;
           blurButton.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
         }, 750);
-
+        blurButton.style.visibility = (newBlur === 0) ? "hidden" : "visible";
       }
 
       blurButton.addEventListener('click', () => {  // When the button is clicked...
