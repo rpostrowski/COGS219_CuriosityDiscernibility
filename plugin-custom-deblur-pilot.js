@@ -129,7 +129,7 @@ var jsPsychCustomDeblurPilot = (function (jspsych) {
 
         setTimeout(() => {
           blurButton.disabled = (newBlur === 0) ? true : false;
-          blurButton.style.opacity = "1.0";
+          blurButton.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
         }, 750);
 
       }
