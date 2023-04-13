@@ -125,10 +125,12 @@ var jsPsychCustomDeblur = (function (jspsych) {
         buttons.forEach((button) => {
           button.disabled = true;
           button.style.opacity = "0.15";
+          button.style.cursor = "default";
             if (totalClicks > 0){
               setTimeout(() => {
                 button.disabled = (newBlur === 0) ? true : false;
                 button.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
+                button.style.cursor = "pointer";
               }, 750);
               button.style.visibility = (newBlur === 0) ? "hidden" : "visible";
             } else {
