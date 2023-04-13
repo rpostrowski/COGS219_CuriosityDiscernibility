@@ -26,6 +26,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
       var img1 = trial.stim.image1;
       var img2 = trial.stim.image2;
       var img3 = trial.stim.image3;
+      var img_array = [img1,img2,img3];
 
       display_element.innerHTML = `	
       <style>
@@ -113,6 +114,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
       // Store base number of clicks and blur levels (updated below)
       var clicks = [0,0,0];
       var blurs = [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3];
+      var img_order = [];
+      var frame_order = [];
 
       // Start with Continue button disabled, grayed out, and cursor not clicky
       continueButton.disabled = true;
@@ -160,6 +163,8 @@ var jsPsychCustomDeblur = (function (jspsych) {
         button.addEventListener('click', () => {
             let currentBlur = blurs[index];
             clicks[index]++;
+            img_order.push(img_array[index]);
+            frame_order.push(index);
             totalClicks--;
             clicksRemainingElement.textContent = totalClicks;
 
@@ -182,7 +187,9 @@ var jsPsychCustomDeblur = (function (jspsych) {
         clicks: clicks,
         blur: blurs,
         orig_blur: [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3],
-        diff_asmts: difficulty_asmts
+        diff_asmts: difficulty_asmts,
+        img_order: img_order,
+        frame_order: frame_order
       };
 
       // When the Continue button is clicked, end the trial

@@ -18,13 +18,20 @@
     const jsPsych = initJsPsych({
         // show_progress_bar: true,
         on_finish: function() {
-        jsPsych.data.displayData();
+          window.location = "https://app.prolific.co/submissions/complete?cc=C1AW14RU"
         }
     });
 
-    const subject_id = jsPsych.randomization.randomID(10);
-    const filename = `${subject_id}.csv`;
+    // capture info from Prolific
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
 
+    jsPsych.data.addProperties({
+      subject_id: subject_id,
+      study_id: study_id,
+      session_id: session_id
+    });
 
     const images = [  ["images/animal.jpg", 4],
                       ["images/bamboo.jpg", 2],
@@ -107,7 +114,7 @@
       `You will go through 9 rounds, so there will be a total of 27 images.` +
       '<br>' +
       '<br>' +
-      `You will not be evaluated on your speed - take your time.` +
+      `You will not be evaluated on your speed — take your time.` +
       '<br>' +
       '<br>' +
       `There's no right or wrong answer.  Have fun exploring!` +
