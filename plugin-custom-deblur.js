@@ -15,7 +15,6 @@ var jsPsychCustomDeblur = (function (jspsych) {
      * jsPsychCustomDeblur
      *     *
      * @author Kai, Liam, Rachel, Zephan
-     * @see {@link https://DOCUMENTATION_URL DOCUMENTATION LINK TEXT}
      */
     class jsPsychCustomDeblur {
       constructor(jsPsych) {
@@ -112,22 +111,37 @@ var jsPsychCustomDeblur = (function (jspsych) {
       clicksRemainingElement.textContent = totalClicks;
       var clicks = [0,0,0];
       var blurs = [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3];
-
+      var difficulty_asmts = jsPsych.randomization.shuffle([5,8,11]);
+      // console.log(difficulty_asmts);
+    
       images.forEach((image,index) => {
+        // console.log("baseline = " + blurs[index]);
+        blurs[index] += difficulty_asmts[index];
         images[index].style.filter = `blur(${blurs[index]}px)`;
+        // console.log("updated = " + blurs[index]);
       })
+
+      function resetButton(newBlur) {
+        this.disabled = true;
+        this.style.opacity = "0.15";
+
+        setTimeout(() => {
+          this.disabled = (newBlur === 0) ? true : false;
+          this.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
+        }, 750);
+        this.style.visibility = (newBlur === 0) ? "hidden" : "visible";
+      }
 
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
           let currentBlur = blurs[index];
-            console.log(currentBlur);
+            // console.log(currentBlur);
             clicks[index]++;
             clicksRemainingElement.textContent = totalClicks;
             totalClicks--;
-            console.log("Total clicks: " + totalClicks);
+            // console.log("Total clicks: " + totalClicks);
             clicksRemainingElement.textContent = totalClicks;
 
-  
             let newBlur = currentBlur - blurStep;
               if (newBlur < 0) {
                 newBlur = 0;
@@ -135,16 +149,16 @@ var jsPsychCustomDeblur = (function (jspsych) {
             
             blurs[index] = newBlur;
             images[index].style.filter = `blur(${newBlur}px)`;
-            button.innerHTML = `Reduce Blur`;
-            button.disabled = (newBlur === 0 || totalClicks <= 0) ? true : false;
-
+            // button.innerHTML = `Reduce Blur`;
+            resetButton.apply(button);
         });
       });
 
         var trial_data = {
           clicks: clicks,
-          blur: blurs
-
+          blur: blurs,
+          orig_blur: [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3],
+          diff_asmts: difficulty_asmts
         };
 
       continueButton.addEventListener('click', () => {

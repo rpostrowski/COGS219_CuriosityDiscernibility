@@ -26,36 +26,36 @@
     const filename = `${subject_id}.csv`;
 
     
-    const images = [  ["images/animal.jpg", 10],
-                      ["images/bamboo.jpg", 10],
-                      ["images/begonia.jpg", 10],
-                      ["images/books.jpg", 10],
-                      ["images/bridge.jpg", 10],
-                      ["images/buildings.jpg", 10],
-                      ["images/coffee.jpg", 10],
-                      ["images/comp.jpg", 10],
-                      ["images/cow.jpg", 10],
+    const images = [  ["images/animal.jpg", 4],
+                      ["images/bamboo.jpg", 2],
+                      ["images/begonia.jpg", 2],
+                      ["images/books.jpg", 7],
+                      ["images/bridge.jpg", 1],
+                      ["images/buildings.jpg", 5],
+                      ["images/coffee.jpg", 4],
+                      ["images/comp.jpg", 1],
+                      ["images/cow.jpg", 4],
                       ["images/deer.jpg", 3],
-                      ["images/doc.jpg", 3],
+                    //  ["images/doc.jpg", 1],
                       ["images/flower.jpg", 7],
-                      ["images/food.jpg", 10],
-                      ["images/girl.jpg", 4],
-                      ["images/goalie.jpg", 4],
-                      ["images/goose.jpg", 10],
-                      ["images/icecream.jpg", 10],
-                      ["images/lightbulb.jpg", 10],
-                      ["images/lion.jpg", 10],
-                      ["images/monks.jpg", 10],
-                      ["images/mountains.jpg", 10],
-                      ["images/owl.jpg", 10],
-                      ["images/road.jpg", 10],
-                      ["images/ropes.jpg", 10],
-                      ["images/sea.jpg", 10],
-                      ["images/spider.jpg", 2],
-                      ["images/toast.jpg", 10],
-                      ["images/terraces.jpg", 10],
-                      ["images/water.jpg", 10],
-                      ["images/weightlifting.jpg", 10]
+                      ["images/food.jpg", 5],
+                      ["images/girl.jpg", 3],
+                      ["images/goalie.jpg", 3],
+                      ["images/goose.jpg", 3],
+                      ["images/icecream.jpg", 4],
+                      ["images/lightbulb.jpg", 4],
+                      ["images/lion.jpg", 2],
+                    //  ["images/monks.jpg", 1],
+                      ["images/mountains.jpg", 5],
+                      ["images/owl.jpg", 5],
+                      ["images/road.jpg", 5],
+                    //  ["images/ropes.jpg", 0],
+                      ["images/sea.jpg", 1],
+                      ["images/spider.jpg", 1],
+                      ["images/toast.jpg", 2],
+                      ["images/terraces.jpg", 1],
+                      ["images/water.jpg", 3],
+                      ["images/weightlifting.jpg", 5]
                     ]
 
     var timeline = [];
@@ -82,13 +82,35 @@
       `Welcome! Click <strong>NEXT</strong> to begin.` +
       '<br>' +
       '<br>',
-      `You will be presented with three images at a time... 20 clicks.` +
+
+      'In the following task, you will be shown 3 images at a time.' +
+      '<br>' +
+      '<br>' +
+      `The images are blurred -- you have the ability to deblur them by using one of your clicks.` +
+      '<br>' +
+      '<br>' +
+      `Then, please describe the image in one or two words.` +
       '<br>' +
       '<br>',
-      `Ready to go?` +
+
+      `There are a total of 27 images, although you can end early if you wish.` +
+      '<br>' +
+      '<br>' +
+      `You'll have the option to end the experiment after each trial.` +
       '<br>' +
       '<br>',
-      
+
+      `Please take your time during the deblur process.` +
+      '<br>' +
+      '<br>' +
+      `The button will become disabled immediately
+       after clicking to prevent you from clicking too quickly.` +
+      '<br>' +
+      '<br>',
+
+      `Ready to begin?` +
+      '<br>' +
+      '<br>'
       ],
       show_clickable_nav: true
     }
@@ -106,8 +128,7 @@
           stim: stimList[5],
           stim: stimList[6],
           stim: stimList[7],
-          stim: stimList[8],
-          stim: stimList[9]
+          stim: stimList[8]
         }
       ]
     }
