@@ -25,6 +25,7 @@
     const subject_id = jsPsych.randomization.randomID(10);
     const filename = `${subject_id}.csv`;
 
+
     const images = [  ["images/animal.jpg", 4],
                       ["images/bamboo.jpg", 2],
                       ["images/begonia.jpg", 2],
@@ -84,27 +85,24 @@
       '<br>' +
       '<br>',
 
-      'In the following task, you will be shown 3 images at a time.' +
+      'In the following task, you will be shown a series of blurred images.' +
       '<br>' +
       '<br>' +
-      `The images are blurred -- you have the ability to deblur them by using one of your clicks.` +
-      '<br>' +
-      '<br>' +
-      `Then, please describe the image in one or two words.` +
+      `You have the ability to partially deblur the images by clicking a button.` +
       '<br>' +
       '<br>',
 
-      `There are a total of 27 images, so you will go through 7 rounds, each with 3 images.` +
+      `On each screen, you will be shown 3 images at a time.` +
       '<br>' +
       '<br>' +
-      `xxx.` +
+      `You only have 10 clicks, so you will not be able to completely deblur all 3 images.` +
       '<br>' +
       '<br>',
 
-      `You will not be evaluated on your speed.  So take your time!` +
+      `You will go through 9 rounds, so there will be a total of 27 images.` +
       '<br>' +
       '<br>' +
-      `However, the trials will time-out after a certain point of inactivity to prevent misuse.  FIX.` +
+      `You will not be evaluated on your speed, so take your time!` +
       '<br>' +
       '<br>',
 
@@ -120,16 +118,15 @@
     var blur_trials = {
       type: jsPsychCustomDeblur,
       timeline: [
-        { stim: stimList[0],
-          stim: stimList[1],
-          stim: stimList[2],
-          stim: stimList[3],
-          stim: stimList[4],
-          stim: stimList[5],
-          stim: stimList[6],
-          stim: stimList[7],
-          stim: stimList[8]
-        }
+        { stim: stimList[0]},
+        { stim: stimList[1]},
+        { stim: stimList[2]},
+        { stim: stimList[3]},
+        { stim: stimList[4]},
+        { stim: stimList[5]},
+        { stim: stimList[6]},
+        { stim: stimList[7]},
+        { stim: stimList[8]}
       ]
     }
 
