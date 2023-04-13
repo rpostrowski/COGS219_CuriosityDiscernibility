@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pilot: Image Discernibility</title>
-    <link rel="icon" type="image/x-icon" href="question.png">
-    <script src="jspsych/jspsych.js"></script>
-    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
-    <script src="jspsych/plugin-html-keyboard-response.js"></script>
-    <script src="jspsych/plugin-image-slider-response.js"></script>
-    <script src="jspsych/plugin-html-button-response.js"></script>
-    <script src="jspsych/plugin-html-keyboard-response.js"></script>
-    <script src="jspsych/plugin-instructions.js"></script>
-    <script src="jspsych/plugin-survey-text.js"></script>
-    <script src="plugin-custom-deblur-pilot.js"></script>
-    <script src="jspsych/plugin-canvas-slider-response.js"></script>
-    <script src="jspsych/plugin-preload.js"></script>
-    <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
-  </head>
-  <body></body>
-  <script>
-    const jsPsych = initJsPsych({
-        on_finish: function() {
-        jsPsych.data.displayData();
-        }
-    });
-    
-    const subject_id = jsPsych.randomization.randomID(10);
-    const filename = `${subject_id}.csv`;
-            
-    var timeline = [];
 
-    var instructions = {
-      type: jsPsychInstructions,
-      pages: [
+<head>
+  <title>Pilot: Image Discernibility</title>
+  <link rel="icon" type="image/x-icon" href="question.png">
+  <script src="jspsych/jspsych.js"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  <script src="jspsych/plugin-html-keyboard-response.js"></script>
+  <script src="jspsych/plugin-image-slider-response.js"></script>
+  <script src="jspsych/plugin-html-button-response.js"></script>
+  <script src="jspsych/plugin-html-keyboard-response.js"></script>
+  <script src="jspsych/plugin-instructions.js"></script>
+  <script src="jspsych/plugin-survey-text.js"></script>
+  <script src="plugin-custom-deblur-pilot.js"></script>
+  <script src="jspsych/plugin-canvas-slider-response.js"></script>
+  <script src="jspsych/plugin-preload.js"></script>
+  <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body></body>
+<script>
+  const jsPsych = initJsPsych({
+    on_finish: function () {
+      jsPsych.data.displayData();
+    }
+  });
+
+  const subject_id = jsPsych.randomization.randomID(10);
+  const filename = `${subject_id}.csv`;
+
+  var timeline = [];
+
+  var instructions = {
+    type: jsPsychInstructions,
+    pages: [
       `Welcome! Click <strong>NEXT</strong> to begin.` +
       '<br>' +
       '<br>',
@@ -60,86 +62,89 @@
       `Ready to begin?` +
       '<br>' +
       '<br>'
-      ],
-      show_clickable_nav: true
-    }
+    ],
+    show_clickable_nav: true
+  }
 
-    timeline.push(instructions);
+  timeline.push(instructions);
 
-    var test_procedure = {
-      timeline: [
-        {
-          type: jsPsychCustomDeblurPilot,
-          stim: jsPsych.timelineVariable('stim'),
-        },
-        {
-          type: jsPsychHtmlButtonResponse,
-          stimulus: '<p>Would you like to continue?</p>',
-          choices: ['Yes, continue!', 'End early'],
-          on_finish: function(data){
-            if(data.response == 1){
+  var test_procedure = {
+    timeline: [
+      {
+        type: jsPsychCustomDeblurPilot,
+        stim: jsPsych.timelineVariable('stim'),
+      },
+      {
+        type: jsPsychHtmlButtonResponse,
+        stimulus: '<p>Would you like to continue?</p>',
+        choices: ['Yes, continue!', 'End early'],
+        on_finish: function (data) {
+          if (data.response == 1) {
+            if (confirm("Are you sure you want to end early?")) {
               jsPsych.endCurrentTimeline();
             }
           }
         }
-      ],
-      timeline_variables: [
-        { stim: 'images/animal.jpg'},
-        { stim: 'images/bamboo.jpg'},
-        { stim: 'images/begonia.jpg'},
-        { stim: 'images/buildings.jpg'},
-        { stim: 'images/deer.jpg'},
-        { stim: 'images/flower.jpg'},
-        { stim: 'images/food.jpg'},
-        { stim: 'images/girl.jpg'},
-        { stim: 'images/goose.jpg'},
-        { stim: 'images/mountains.jpg'},
-        { stim: 'images/road.jpg'},
-        { stim: 'images/spider.jpg'},
-        { stim: 'images/terraces.jpg'},
-        { stim: 'images/coffee.jpg'},
-        { stim: 'images/lightbulb.jpg'},
-        { stim: 'images/owl.jpg'},
-        { stim: 'images/cow.jpg'},
-        { stim: 'images/icecream.jpg'},
-        { stim: 'images/books.jpg'},
-        { stim: 'images/weightlifting.jpg'},
-        { stim: 'images/sea.jpg'},
-        { stim: 'images/comp.jpg'},
-        { stim: 'images/goalie.jpg'},
-        { stim: 'images/bridge.jpg'},
-        { stim: 'images/doc.jpg'},
-        { stim: 'images/monks.jpg'},
-        { stim: 'images/ropes.jpg'},
-        { stim: 'images/toast.jpg'},
-        { stim: 'images/water.jpg'},
-        { stim: 'images/lion.jpg'}
-       ],
-      sample: {
-          type: 'without-replacement',
-          size: 30
       }
-   }
-
-    timeline.push(test_procedure);
-
-    const save_data = {
-                type: jsPsychPipe,
-                action: "save",
-                experiment_id: "QSZrht9sx76m",
-                filename: filename,
-                data_string: ()=>jsPsych.data.get().csv()
-              };
-
-    timeline.push(save_data);
-
-    const thank_you = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: 'Thanks for participating!  You may close this tab.'
+    ],
+    timeline_variables: [
+      { stim: 'images/animal.jpg' },
+      { stim: 'images/bamboo.jpg' },
+      { stim: 'images/begonia.jpg' },
+      { stim: 'images/buildings.jpg' },
+      { stim: 'images/deer.jpg' },
+      { stim: 'images/flower.jpg' },
+      { stim: 'images/food.jpg' },
+      { stim: 'images/girl.jpg' },
+      { stim: 'images/goose.jpg' },
+      { stim: 'images/mountains.jpg' },
+      { stim: 'images/road.jpg' },
+      { stim: 'images/spider.jpg' },
+      { stim: 'images/terraces.jpg' },
+      { stim: 'images/coffee.jpg' },
+      { stim: 'images/lightbulb.jpg' },
+      { stim: 'images/owl.jpg' },
+      { stim: 'images/cow.jpg' },
+      { stim: 'images/icecream.jpg' },
+      { stim: 'images/books.jpg' },
+      { stim: 'images/weightlifting.jpg' },
+      { stim: 'images/sea.jpg' },
+      { stim: 'images/comp.jpg' },
+      { stim: 'images/goalie.jpg' },
+      { stim: 'images/bridge.jpg' },
+      { stim: 'images/doc.jpg' },
+      { stim: 'images/monks.jpg' },
+      { stim: 'images/ropes.jpg' },
+      { stim: 'images/toast.jpg' },
+      { stim: 'images/water.jpg' },
+      { stim: 'images/lion.jpg' }
+    ],
+    sample: {
+      type: 'without-replacement',
+      size: 30
     }
+  }
 
-    timeline.push(thank_you);
+  timeline.push(test_procedure);
 
-    jsPsych.run(timeline);
+  const save_data = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "QSZrht9sx76m",
+    filename: filename,
+    data_string: () => jsPsych.data.get().csv()
+  };
+
+  timeline.push(save_data);
+
+  const thank_you = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: 'Thanks for participating!  You may close this tab.'
+  }
+
+  timeline.push(thank_you);
+
+  jsPsych.run(timeline);
 </script>
+
 </html>
