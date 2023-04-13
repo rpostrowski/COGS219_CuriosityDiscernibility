@@ -68,14 +68,15 @@ var jsPsychCustomDeblur = (function (jspsych) {
             gap: 20px;
           }
           .image-wrapper img {
-            max-width: 250px;
+            width: 250px;
+            height: 166px;
             filter: blur(0px);
             transition: filter 0.0s ease;
           }
           </style>
 
         <div id="header">
-            <p id="click-tracker"><span class="click-tracker-label">Clicks remaining: </span><span id="clicks-remaining">10</span></p>
+            <p id="click-tracker"><span class="click-tracker-label">Clicks remaining: </span><span id="clicks-remaining">10<br></span></p>
         </div>
         
         <div class="container">
@@ -111,7 +112,9 @@ var jsPsychCustomDeblur = (function (jspsych) {
       clicksRemainingElement.textContent = totalClicks;
       var clicks = [0,0,0];
       var blurs = [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3];
-      var difficulty_asmts = jsPsych.randomization.shuffle([5,8,11]);
+
+      // these three values are our easy, med, hard variants
+      var difficulty_asmts = jsPsych.randomization.shuffle([3,5,8]);
       // console.log(difficulty_asmts);
     
       images.forEach((image,index) => {
