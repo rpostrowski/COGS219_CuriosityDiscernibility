@@ -78,17 +78,22 @@
       stimList.push(stim);
     }
 
+    var keyboardStart = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '',
+      prompt: '<p>Press any key to begin.</p>',
+
+    }
+
+    timeline.push(keyboardStart);
+
     var instructions = {
       type: jsPsychInstructions,
       pages: [
-      `Welcome! Click <strong>NEXT</strong> to begin.` +
-      '<br>' +
-      '<br>',
-
       'In the following task, you will be shown a series of blurred images.' +
       '<br>' +
       '<br>' +
-      `You have the ability to partially deblur the images by clicking a button.` +
+      `You have the ability to gradually deblur the images by clicking a button.` +
       '<br>' +
       '<br>',
 
