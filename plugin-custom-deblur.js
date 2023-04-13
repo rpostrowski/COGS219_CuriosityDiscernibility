@@ -101,7 +101,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
       
       `
 
-      const buttons = document.querySelectorAll('.button');
+      const buttons = document.querySelectorAll('.button:not(#continue)');
       const images = document.querySelectorAll('.image-wrapper img');
       const continueButton = document.querySelector('#continue');
       const blurStep = 1;
@@ -121,23 +121,39 @@ var jsPsychCustomDeblur = (function (jspsych) {
         // console.log("updated = " + blurs[index]);
       })
 
-      function resetButton(newBlur) {
-        this.disabled = true;
-        this.style.opacity = "0.15";
+      function resetButtons(newBlur) {
+        buttons.forEach((button) => {
+          button.disabled = true;
+          button.style.opacity = "0.15";
+            if (totalClicks > 0){
+              setTimeout(() => {
+                button.disabled = (newBlur === 0) ? true : false;
+                button.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
+              }, 750);
+              button.style.visibility = (newBlur === 0) ? "hidden" : "visible";
+            } else {
+              button.disabled = true;
+              button.style.opacity = "0.0";
+              button.style.visibility = "hidden";
+            }
+        })
+      }
 
-        setTimeout(() => {
-          this.disabled = (newBlur === 0) ? true : false;
-          this.style.opacity = (newBlur === 0) ? "0.0" : "1.0";
-        }, 750);
-        this.style.visibility = (newBlur === 0) ? "hidden" : "visible";
+      function deactivateButtons() {
+        buttons.forEach((button) => {
+            button.disabled = true;
+            button.style.opacity = "0.0";
+            button.style.visibility = "hidden";
+            console.log("HEREEE");
+          }
+        )
       }
 
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => {
-          let currentBlur = blurs[index];
+            let currentBlur = blurs[index];
             // console.log(currentBlur);
             clicks[index]++;
-            clicksRemainingElement.textContent = totalClicks;
             totalClicks--;
             // console.log("Total clicks: " + totalClicks);
             clicksRemainingElement.textContent = totalClicks;
@@ -146,12 +162,15 @@ var jsPsychCustomDeblur = (function (jspsych) {
               if (newBlur < 0) {
                 newBlur = 0;
               }
+
+              console.log(newBlur);
             
             blurs[index] = newBlur;
             images[index].style.filter = `blur(${newBlur}px)`;
             // button.innerHTML = `Reduce Blur`;
-            resetButton.apply(button);
-        });
+            resetButtons.apply(button);
+          }
+        )
       });
 
         var trial_data = {
