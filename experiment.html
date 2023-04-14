@@ -17,7 +17,7 @@
   <body></body>
   <script>
     const jsPsych = initJsPsych({
-        show_progress_bar: true,
+        // show_progress_bar: true,
         on_finish: function() {
           window.location = "https://app.prolific.co/submissions/complete?cc=C1AW14RU"
         }
@@ -30,8 +30,11 @@
 
     // For testing
     if(subject_id === undefined){
-      subject_id = "test";
+      subject_id = "test_";
+      subject_id += jsPsych.randomization.randomID(4);
     }
+
+    console.log(subject_id);
 
     // DataPipe info
     const filename = `${subject_id}.csv`;
