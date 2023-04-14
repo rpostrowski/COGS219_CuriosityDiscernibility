@@ -7,6 +7,7 @@
     <script src="jspsych/plugin-html-keyboard-response.js"></script>
     <script src="jspsych/plugin-instructions.js"></script>
     <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+    <script src="jspsych/plugin-preload.js"></script>
     <script src="jspsych/plugin-image-slider-response.js"></script>
     <script src="plugin-custom-deblur-pilot.js"></script>
     <script src="plugin-custom-deblur.js"></script>
@@ -33,6 +34,7 @@
       subject_id = "test_";
       subject_id += jsPsych.randomization.randomID(4);
     }
+
 
     // DataPipe info
     const filename = `${subject_id}.csv`;
@@ -78,6 +80,19 @@
 
 
     var timeline = [];
+
+    const imageNameArray = images.map(image => {
+      return image[0].replace(/,\s*\d+$/, '');
+    });
+
+    console.log(imageNameArray);
+
+    var preload = {
+      type: jsPsychPreload,
+      images: imageNameArray
+    }
+
+    timeline.push(preload);
 
     const shuffledImages = jsPsych.randomization.shuffle(images);
 
