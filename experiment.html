@@ -34,8 +34,6 @@
       subject_id += jsPsych.randomization.randomID(4);
     }
 
-    console.log(subject_id);
-
     // DataPipe info
     const filename = `${subject_id}.csv`;
 
@@ -112,21 +110,21 @@
       'In the following task, you will be shown a series of blurred images.' +
       '<br>' +
       '<br>' +
-      `You have the ability to gradually deblur each image by clicking a button.` +
+      `You will be shown 3 images at a time.` +
       '<br>' +
       '<br>',
 
-      `You will be shown 3 images at a time.` +
+      `You have the ability to gradually deblur each image by clicking a button.` +
       '<br>' +
       '<br>' +
-      `However, your clicks are limited, so you will not be able to completely deblur all 3 images.` +
+      `You are limited to using 10 clicks, so you will not be able to completely deblur all 3 images.` +
       '<br>' +
       '<br>',
 
       `There are 9 rounds in total, so you will see a total of 27 images.` +
       '<br>' +
       '<br>' +
-      `You won't be evaluated on your speed — take your time.` +
+      `You won't be evaluated on your speed — take your time.  You must use all 10 clicks each round.` +
       '<br>' +
       '<br>' +
       `<strong>There's no right or wrong answer.  Have fun exploring!</strong>` +
