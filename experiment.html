@@ -27,6 +27,9 @@
     var study_id = jsPsych.data.getURLVariable('STUDY_ID');
     var session_id = jsPsych.data.getURLVariable('SESSION_ID');
 
+    // DataPipe info
+    const filename = `${subject_id}.csv`;
+
     jsPsych.data.addProperties({
       subject_id: subject_id,
       study_id: study_id,
@@ -146,6 +149,16 @@
     }
 
     timeline.push(blur_trials);
+
+    const save_data = {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: "rFborNfGmcf5",
+      filename: filename,
+      data_string: ()=>jsPsych.data.get().csv()
+    };
+
+    timeline.push(save_data);
 
     jsPsych.run(timeline);
 </script>
