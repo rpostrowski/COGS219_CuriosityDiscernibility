@@ -172,8 +172,6 @@ var jsPsychCustomDeblur = (function (jspsych) {
               if (newBlur < 0) {
                 newBlur = 0;
               }
-
-              console.log(newBlur);
             
             blurs[index] = newBlur;
             images[index].style.filter = `blur(${newBlur}px)`;
@@ -183,14 +181,14 @@ var jsPsychCustomDeblur = (function (jspsych) {
       });
 
       // Identify the data we want to store 
-      var trial_data = {
-        images: img_array,
-        clicks: clicks,
-        blur: blurs,
-        orig_blur: [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3],
-        diff_asmts: difficulty_asmts,
-        img_order: img_order,
-        frame_order: frame_order
+      var trial_data = { 
+        images: img_array, // files paths of the three images
+        clicks: clicks, // num of clicks per button
+        final_blur: blurs, // blur at the end of the trial
+        pilot_baseline: [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3], // baseline blur
+        difficulty_asmts: difficulty_asmts, // randomly generated within ranges, then shuffled
+        img_order: img_order, // order of images chosen, by name
+        frame_order: frame_order // order of images chosen, by index
       };
 
       // When the Continue button is clicked, end the trial
