@@ -17,16 +17,21 @@
   <body></body>
   <script>
     const jsPsych = initJsPsych({
-        // show_progress_bar: true,
+        show_progress_bar: true,
         on_finish: function() {
           window.location = "https://app.prolific.co/submissions/complete?cc=C1AW14RU"
         }
     });
 
-    // capture info from Prolific
+    // Capture info from Prolific
     var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
     var study_id = jsPsych.data.getURLVariable('STUDY_ID');
     var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+    // For testing
+    if(subject_id === undefined){
+      subject_id = "test";
+    }
 
     // DataPipe info
     const filename = `${subject_id}.csv`;
