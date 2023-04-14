@@ -184,6 +184,7 @@ var jsPsychCustomDeblur = (function (jspsych) {
 
       // Identify the data we want to store 
       var trial_data = {
+        images: img_array,
         clicks: clicks,
         blur: blurs,
         orig_blur: [trial.stim.blur1, trial.stim.blur2, trial.stim.blur3],
